@@ -47,6 +47,16 @@ void mostrarMemoria() {
     cout << "  (tope de pila arriba)" << endl;
 }
 
+int calcularMemoriaTotal() {
+    int total = 0;
+    NodoPila* temp = pilaTop;
+    while (temp != nullptr) {
+        total += temp->bloqueMemoria;
+        temp = temp->siguiente;
+    }
+    return total;
+}
+
 void menuMemoria() {
     int op;
     do {
@@ -54,6 +64,7 @@ void menuMemoria() {
         cout << "  ║    GESTOR DE MEMORIA         ║" << endl;
         cout << "  ║  (Estructura: Pila)          ║" << endl;
         cout << "  ╚══════════════════════════════╝" << endl;
+        cout << "  Memoria total en uso: " << calcularMemoriaTotal() << " MB" << endl;
         cout << "  1. Asignar memoria a proceso" << endl;
         cout << "  2. Liberar ultimo bloque (LIFO)" << endl;
         cout << "  3. Ver estado actual de memoria" << endl;

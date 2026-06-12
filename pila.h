@@ -5,6 +5,7 @@
 #include "lista.h"
 
 extern NodoPila* pilaTop;
+int calcularMemoriaTotal();
 
 void asignarMemoria(int idProceso, int bloque);
 void liberarMemoria();
