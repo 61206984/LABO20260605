@@ -1,10 +1,9 @@
 #include <iostream>
-#include <fstream>
-#include <string>
 #include <limits>
 #include "lista.h"
 #include "cola.h"
 #include "pila.h"
+#include "persistencia.h"
 
 using namespace std;
 
@@ -47,50 +46,6 @@ void esperarEnter() {
     cin.get();
 }
 
-void guardarEstado() {
-    ofstream archivo("estado.txt");
-    archivo << contadorID << endl;
-    Proceso* temp = listaHead;
-    while (temp != nullptr) {
-        archivo << "P " << temp->id << " " << temp->prioridad << " " << temp->memoria << " " << temp->nombre << endl;
-        temp = temp->siguiente;
-    }
-    archivo.close();
-    cout << "  [OK] Estado guardado en estado.txt" << endl;
-}
-
-void cargarEstado() {
-    ifstream archivo("estado.txt");
-    if (!archivo.is_open()) {
-        cout << "  [i] No se encontro estado previo. Iniciando sistema nuevo." << endl;
-        return;
-    }
-    archivo >> contadorID;
-    string tipo;
-    while (archivo >> tipo) {
-        if (tipo == "P") {
-            int id, prioridad, memoria;
-            string nombre;
-            archivo >> id >> prioridad >> memoria >> nombre;
-            Proceso* nuevo = new Proceso();
-            nuevo->id = id;
-            nuevo->nombre = nombre;
-            nuevo->prioridad = prioridad;
-            nuevo->memoria = memoria;
-            nuevo->siguiente = nullptr;
-            if (listaHead == nullptr) {
-                listaHead = nuevo;
-            } else {
-                Proceso* t = listaHead;
-                while (t->siguiente != nullptr) t = t->siguiente;
-                t->siguiente = nuevo;
-            }
-        }
-    }
-    archivo.close();
-    cout << "  [OK] Estado cargado correctamente." << endl;
-}
-
 int main() {
     cout << "\n  Iniciando Sistema de Gestion de Procesos..." << endl;
     cargarEstado();
@@ -114,6 +69,8 @@ int main() {
 
     } while (op != 0);
 
+    cout << "\n  Guardando estado antes de salir..." << endl;
+    guardarEstado();
     cout << "\n  Cerrando sistema. Hasta luego." << endl;
     return 0;
 }
