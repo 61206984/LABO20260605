@@ -43,6 +43,12 @@ string leerTexto(string mensaje) {
     }
 }
 
+void esperarEnter() {
+    cout << "\n  Presione Enter para continuar...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
 void encolarProceso(int id) {
     Proceso* p = buscarProcesoPorID(id);
     if (p == nullptr) {
@@ -220,6 +226,7 @@ void menuCPU() {
             ejecutarProceso();
         } else if (op == 3) {
             mostrarCola();
+            esperarEnter();
         }
     } while (op != 0);
 }
@@ -248,6 +255,7 @@ void menuMemoria() {
             liberarMemoria();
         } else if (op == 3) {
             mostrarMemoria();
+            esperarEnter();
         }
     } while (op != 0);
 }

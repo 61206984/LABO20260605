@@ -15,5 +15,6 @@ void listarProcesos();
 void menuGestorProcesos();
 int leerEntero(string mensaje, int minVal, int maxVal);
 string leerTexto(string mensaje);
+void esperarEnter();
 
 #endif

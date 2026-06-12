@@ -135,6 +135,7 @@ void menuGestorProcesos() {
             } else {
                 cout << "  [!] No existe proceso con ese ID." << endl;
             }
+            esperarEnter();
         } else if (op == 4) {
             cout << "\n  -- Buscar proceso por nombre --" << endl;
             string nombre = leerTexto("  Nombre a buscar: ");
@@ -147,6 +148,7 @@ void menuGestorProcesos() {
             } else {
                 cout << "  [!] No existe proceso con ese nombre." << endl;
             }
+            esperarEnter();
         } else if (op == 5) {
             cout << "\n  -- Modificar prioridad --" << endl;
             cout << "  (Use la opcion 6 para ver los IDs disponibles)" << endl;
@@ -155,6 +157,7 @@ void menuGestorProcesos() {
             modificarPrioridad(id, nueva);
         } else if (op == 6) {
             listarProcesos();
+            esperarEnter();
         }
     } while (op != 0);
 }
