@@ -1,10 +1,9 @@
 #include <iostream>
-#include <fstream>
-#include <string>
 #include <limits>
 #include "lista.h"
 #include "cola.h"
 #include "pila.h"
+#include "persistencia.h"
 
 using namespace std;
 
@@ -45,50 +44,6 @@ void esperarEnter() {
     cout << "\n  Presione Enter para continuar...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
-}
-
-void guardarEstado() {
-    ofstream archivo("estado.txt");
-    archivo << contadorID << endl;
-    Proceso* temp = listaHead;
-    while (temp != nullptr) {
-        archivo << "P " << temp->id << " " << temp->prioridad << " " << temp->memoria << " " << temp->nombre << endl;
-        temp = temp->siguiente;
-    }
-    archivo.close();
-    cout << "  [OK] Estado guardado en estado.txt" << endl;
-}
-
-void cargarEstado() {
-    ifstream archivo("estado.txt");
-    if (!archivo.is_open()) {
-        cout << "  [i] No se encontro estado previo. Iniciando sistema nuevo." << endl;
-        return;
-    }
-    archivo >> contadorID;
-    string tipo;
-    while (archivo >> tipo) {
-        if (tipo == "P") {
-            int id, prioridad, memoria;
-            string nombre;
-            archivo >> id >> prioridad >> memoria >> nombre;
-            Proceso* nuevo = new Proceso();
-            nuevo->id = id;
-            nuevo->nombre = nombre;
-            nuevo->prioridad = prioridad;
-            nuevo->memoria = memoria;
-            nuevo->siguiente = nullptr;
-            if (listaHead == nullptr) {
-                listaHead = nuevo;
-            } else {
-                Proceso* t = listaHead;
-                while (t->siguiente != nullptr) t = t->siguiente;
-                t->siguiente = nuevo;
-            }
-        }
-    }
-    archivo.close();
-    cout << "  [OK] Estado cargado correctamente." << endl;
 }
 
 int main() {
