@@ -69,6 +69,8 @@ int main() {
 
     } while (op != 0);
 
+    cout << "\n  Guardando estado antes de salir..." << endl;
+    guardarEstado();
     cout << "\n  Cerrando sistema. Hasta luego." << endl;
     return 0;
 }
